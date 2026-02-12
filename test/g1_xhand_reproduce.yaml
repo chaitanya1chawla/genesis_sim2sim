@@ -1,0 +1,251 @@
+name: g1_xhand 
+
+load_kwargs:
+  file: "assets/g1/g1_body29_xhand_mod_waist_new_arms.urdf"
+  pos: [-0.02, 0.70, 0.9530]
+  quat: [-0.707, 0.0, 0.0, 0.707]
+  fixed: true
+  merge_fixed_links: false
+  links_to_keep: ["left_wrist_ee_link", "right_wrist_ee_link"]
+  collision: true
+  convexify: true
+  gravity_compensation: 0.0
+  visualize_contact: true
+
+
+action_cfg:
+  finger_action_mode: "absolute"
+  wrist_action_mode: "plai" # delta or plai
+  arm_control_mode: "joint" # IK or joint
+  action_clip: 1.0
+  scales:
+    pos: [0.05, 0.05, 0.05]
+    rot: [0.05, 0.05, 0.05]
+    angle: 0.05
+  action_moving_avg: 1.0
+  control_sides: ["left", "right"]
+
+default_qpos:
+  - [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+  - [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+
+wrist_link_names:
+  left: left_wrist_ee_link
+  right: right_wrist_ee_link
+
+joint_groups:
+  waist: [waist_yaw_joint, waist_roll_joint, waist_pitch_joint]
+  waist_limit_upper: [0.7, 0.3, 0.2] # modified from unitree
+  waist_limit_lower: [-0.7, -0.3, 0.0] # modified from unitree
+
+  waist_yaw: [waist_yaw_joint] # ONLY WAIST_YAW IS USED FOR NOW
+  waist_yaw_limit_upper: [0.7] # modified to 0.4 from 0.7 in urdf.
+  waist_yaw_limit_lower: [-0.7]
+
+  left_arm: [left_shoulder_pitch_joint, left_shoulder_roll_joint, left_shoulder_yaw_joint, left_elbow_joint, left_wrist_roll_joint, left_wrist_pitch_joint, left_wrist_yaw_joint]
+  left_arm_limit_upper: [2.6704,   2.2515,  2.618,  2.0944,  1.97222,  1.61443,  1.61443]
+  left_arm_limit_lower: [-3.0892, -1.5882, -2.618, -1.0472, -1.97222, -1.61443, -1.61443]
+
+  right_arm: [right_shoulder_pitch_joint, right_shoulder_roll_joint, right_shoulder_yaw_joint, right_elbow_joint, right_wrist_roll_joint, right_wrist_pitch_joint, right_wrist_yaw_joint]
+  right_arm_limit_upper: [2.6704,   1.5882,  2.618,  2.0944,  1.97222,  1.61443,  1.61443]
+  right_arm_limit_lower: [-3.0892, -2.2515, -2.618, -1.0472, -1.97222, -1.61443, -1.61443]
+
+  left_hand:
+    - left_hand_thumb_bend_joint
+    - left_hand_thumb_rota_joint1
+    - left_hand_thumb_rota_joint2
+    # - left_hand_thumb_rota_joint3 - fixed
+    - left_hand_index_bend_joint
+    - left_hand_index_joint1
+    - left_hand_index_joint2
+    # - left_hand_index_rota_joint3 - fixed
+    - left_hand_mid_joint1
+    - left_hand_mid_joint2
+    # - left_hand_mid_joint3 - fixed
+    - left_hand_ring_joint1
+    - left_hand_ring_joint2
+    # - left_hand_ring_joint3 - fixed
+    - left_hand_pinky_joint1
+    - left_hand_pinky_joint2
+    # - left_hand_pinky_joint3 - fixed
+  # left_hand_thumb_bend_joint limits changed from [0.0, 1.83]
+  # joint 3 from [-0.175, 0.175] to [-0.155, 0.155]
+  # Changed joints 4-11 from [0.0, 1.92] to [0.1, 1.82]
+  left_hand_limit_upper: [ 1.73,  1.57,  1.83,     0.155, 1.82, 1.82,   1.82, 1.82,    1.82, 1.82,    1.82, 1.82]
+  left_hand_limit_lower:  [ 0.6,  -1.05, -0.17,    -0.155, 0.1,  0.1,    0.1,  0.1,     0.1,  0.1,     0.1,  0.1 ] 
+  
+
+  right_hand:
+    - right_hand_thumb_bend_joint
+    - right_hand_thumb_rota_joint1
+    - right_hand_thumb_rota_joint2
+    # - right_hand_thumb_rota_joint3 - fixed
+    - right_hand_index_bend_joint
+    - right_hand_index_joint1
+    - right_hand_index_joint2
+    # - right_hand_index_rota_joint3 - fixed
+    - right_hand_mid_joint1
+    - right_hand_mid_joint2
+    # - right_hand_mid_joint3 - fixed
+    - right_hand_ring_joint1
+    - right_hand_ring_joint2
+    # - right_hand_ring_joint3 - fixed
+    - right_hand_pinky_joint1
+    - right_hand_pinky_joint2
+    # - right_hand_pinky_joint3 - fixed
+  # right_hand_thumb_bend_joint limits changed from [0.0, 1.83]
+  right_hand_limit_upper: [ 1.73,  1.57,  1.83,     0.155, 1.82, 1.82,   1.82, 1.82,    1.82, 1.82,    1.82, 1.82]
+  right_hand_limit_lower: [ 0.6,  -1.05, -0.17,    -0.155, 0.1,  0.1,    0.1,  0.1,     0.1,  0.1,     0.1,  0.1 ]
+
+actuators:
+  - group: waist
+    joint_exprs:
+    - waist_yaw_joint
+    - waist_roll_joint
+    - waist_pitch_joint
+
+    kp: [300, 300, 300]
+    kd: [3.0, 3.0, 3.0]
+    force_range: [88, 50, 50]
+    # default damping: 0.0
+    # default armature: 0.1
+
+  - group: arm
+    joint_exprs: 
+    - left_shoulder_pitch_joint
+    - left_shoulder_roll_joint
+    - left_shoulder_yaw_joint
+    - left_elbow_joint
+    - left_wrist_roll_joint
+    - left_wrist_pitch_joint
+    - left_wrist_yaw_joint
+
+    - right_shoulder_pitch_joint
+    - right_shoulder_roll_joint
+    - right_shoulder_yaw_joint
+    - right_elbow_joint
+    - right_wrist_roll_joint
+    - right_wrist_pitch_joint
+    - right_wrist_yaw_joint
+
+    kp: [80, 80, 80, 80, 
+        40, 40, 40,
+        80, 80, 80, 80,
+         40, 40, 40]
+    kv: [3.0, 3.0, 3.0, 3.0, 
+        1.5, 1.5, 1.5,
+        3.0, 3.0, 3.0, 3.0, 
+        1.5, 1.5, 1.5]
+    force_range: [25, 25, 25, 25,
+                  25, 5, 5,
+                  25, 25, 25, 25,
+                  25, 5, 5]
+    damping: [0.0, 0.0, 0.0, 0.0,
+              0.0, 0.0, 0.0,
+              0.0, 0.0, 0.0, 0.0,
+              0.0, 0.0, 0.0]
+    armature: [0.02, 0.02, 0.02, 0.02,
+              0.02, 0.02, 0.02,
+              0.02, 0.02, 0.02, 0.02,
+              0.02, 0.02, 0.02]
+
+  - group: fingers
+    joint_exprs: 
+    - left_hand_thumb_bend_joint
+    - left_hand_index_bend_joint
+    - left_hand_mid_joint1
+    - left_hand_ring_joint1
+    - left_hand_pinky_joint1
+    - left_hand_thumb_rota_joint1
+    - left_hand_index_joint1
+    - left_hand_mid_joint2
+    - left_hand_ring_joint2
+    - left_hand_pinky_joint2
+    - left_hand_thumb_rota_joint2
+    - left_hand_index_joint2
+
+    - right_hand_thumb_bend_joint
+    - right_hand_index_bend_joint
+    - right_hand_mid_joint1
+    - right_hand_ring_joint1
+    - right_hand_pinky_joint1
+    - right_hand_thumb_rota_joint1
+    - right_hand_index_joint1
+    - right_hand_mid_joint2
+    - right_hand_ring_joint2
+    - right_hand_pinky_joint2
+    - right_hand_thumb_rota_joint2
+    - right_hand_index_joint2
+
+    # kp: 150.0 # from eliot
+    # kv: 5.0 
+    # armature: 0.5
+    # damping: 1.0
+
+    kp: 3.0 # from dexscrew
+    kv: 0.01 
+    force_range: 30.0
+    armature: 0.1
+    damping: 0.15 # they use friction instead.
+    # default frictionloss in urdf  = 1.0
+    # # invweight: 10.0
+
+# FIXME: verify order for xhands.
+joint_order:
+ - joint_pelvis  # ignored
+ 
+ - 0 left_hip_pitch_joint
+ - 1right_hip_pitch_joint
+ - 2waist_yaw_joint
+ - 3left_hip_roll_joint
+ - 4right_hip_roll_joint
+ - 5waist_roll_joint
+ - 6left_hip_yaw_joint
+ - 7right_hip_yaw_joint
+ - 8waist_pitch_joint
+ - 9left_knee_joint
+ - 10right_knee_joint
+ - 11left_shoulder_pitch_joint
+ - 12right_shoulder_pitch_joint
+ - 13left_ankle_pitch_joint
+ - 14right_ankle_pitch_joint
+ - 15left_shoulder_roll_joint
+ - 16right_shoulder_roll_joint
+ - 17left_ankle_roll_joint
+ - 18right_ankle_roll_joint
+ - 19left_shoulder_yaw_joint
+ - 20right_shoulder_yaw_joint
+
+ - 21left_elbow_joint
+ - 22right_elbow_joint
+ - 23left_wrist_roll_joint
+ - 24right_wrist_roll_joint
+ - 25left_wrist_pitch_joint
+ - 26right_wrist_pitch_joint
+ - 27left_wrist_yaw_joint
+ - 28right_wrist_yaw_joint
+ 
+ - left_hand_thumb_bend_joint
+ - left_hand_index_bend_joint
+ - left_hand_mid_joint1
+ - left_hand_ring_joint1
+ - left_hand_pinky_joint1
+ - right_hand_thumb_bend_joint
+ - right_hand_index_bend_joint
+ - right_hand_mid_joint1
+ - right_hand_ring_joint1
+ - right_hand_pinky_joint1
+ - left_hand_thumb_rota_joint1
+ - left_hand_index_joint1
+ - left_hand_mid_joint2
+ - left_hand_ring_joint2
+ - left_hand_pinky_joint2
+ - right_hand_thumb_rota_joint1
+ - right_hand_index_joint1
+ - right_hand_mid_joint2
+ - right_hand_ring_joint2
+ - right_hand_pinky_joint2
+ - left_hand_thumb_rota_joint2
+ - left_hand_index_joint2
+ - right_hand_thumb_rota_joint2
+ - right_hand_index_joint2

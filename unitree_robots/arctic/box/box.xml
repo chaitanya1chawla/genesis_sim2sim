@@ -1,0 +1,28 @@
+<mujoco model="box">
+  <compiler angle="radian" meshdir="."/>
+
+  <asset>
+    <mesh name="bottom_watertight_tiny" content_type="model/obj" file="bottom_watertight_tiny.obj"/>
+    <mesh name="top_watertight_tiny" content_type="model/obj" file="top_watertight_tiny.obj"/>
+  </asset>
+
+  <worldbody>
+    <!-- Arctic Box (articulated with revolute joint) -->
+    <!-- Collision filtering: Prevent self-collision between bottom and top -->
+    <!-- Bottom=type2, Top=type4. Both only collide with type1 (floor/robot) -->
+    <body name="bottom">
+      <!-- <freejoint/> -->
+      <inertial pos="0.06401037 0.12394632 0.07233545" mass="0.9641835" fullinertia="0.01740937 0.01853028 0.00957994 -0.00410050 0.00006425 -0.00009072"/>
+      <geom name="bottom_geom" type="mesh" rgba="1 0.423529 0.0392157 1" mesh="bottom_watertight_tiny" contype="2" conaffinity="1"/>
+      <body name="top">
+        <inertial pos="0.112183 0.0712945 0.0730111" quat="0.405227 0.00403576 0.00592529 0.914188" mass="0.13" diaginertia="0.00249554 0.00154448 0.000968024"/>
+        <joint name="rotation" pos="0 0 0" axis="0 0 -1" range="0 2.6" actuatorfrcrange="-50 50" damping="0.01" frictionloss="0.0" armature="0.1"/>
+        <geom name="top_geom" type="mesh" rgba="1 0.423529 0.0392157 1" mesh="top_watertight_tiny" contype="4" conaffinity="1"/>
+      </body>
+    </body>
+  </worldbody>
+</mujoco>
+
+
+<!-- From genesis urdf: -->
+    <!-- <dynamics damping="0.01" friction="0.0"/> -->

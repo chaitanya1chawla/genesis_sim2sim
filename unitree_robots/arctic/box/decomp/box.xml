@@ -1,0 +1,48 @@
+<mujoco model="box">
+  <compiler angle="radian" meshdir="."/>
+
+  <asset>
+    <mesh name="bottom_watertight_tiny_part0" content_type="model/obj" file="bottom_watertight_tiny_part0.obj"/>
+    <mesh name="bottom_watertight_tiny_part1" content_type="model/obj" file="bottom_watertight_tiny_part1.obj"/>
+    <mesh name="bottom_watertight_tiny_part2" content_type="model/obj" file="bottom_watertight_tiny_part2.obj"/>
+    <mesh name="bottom_watertight_tiny_part3" content_type="model/obj" file="bottom_watertight_tiny_part3.obj"/>
+    <mesh name="bottom_watertight_tiny_part4" content_type="model/obj" file="bottom_watertight_tiny_part4.obj"/>
+    <mesh name="bottom_watertight_tiny_part5" content_type="model/obj" file="bottom_watertight_tiny_part5.obj"/>
+    <mesh name="bottom_watertight_tiny_part6" content_type="model/obj" file="bottom_watertight_tiny_part6.obj"/>
+    <mesh name="bottom_watertight_tiny_part7" content_type="model/obj" file="bottom_watertight_tiny_part7.obj"/>
+    <mesh name="top_watertight_tiny_part0" content_type="model/obj" file="top_watertight_tiny_part0.obj"/>
+    <mesh name="top_watertight_tiny_part1" content_type="model/obj" file="top_watertight_tiny_part1.obj"/>
+    <mesh name="top_watertight_tiny_part2" content_type="model/obj" file="top_watertight_tiny_part2.obj"/>
+    <mesh name="top_watertight_tiny_part3" content_type="model/obj" file="top_watertight_tiny_part3.obj"/>
+    <mesh name="top_watertight_tiny_part4" content_type="model/obj" file="top_watertight_tiny_part4.obj"/>
+    <mesh name="top_watertight_tiny_part5" content_type="model/obj" file="top_watertight_tiny_part5.obj"/>
+    <mesh name="top_watertight_tiny_part6" content_type="model/obj" file="top_watertight_tiny_part6.obj"/>
+    <mesh name="top_watertight_tiny_part7" content_type="model/obj" file="top_watertight_tiny_part7.obj"/>
+  </asset>
+
+  <worldbody>
+    <body name="bottom">
+      <inertial pos="0.06401037 0.12394632 0.07233545" mass="0.9641835" fullinertia="0.01740937 0.01853028 0.00957994 -0.00410050 0.00006425 -0.00009072"/>
+      <geom type="mesh" rgba="1 0.423529 0.0392157 1" mesh="bottom_watertight_tiny_part0"/>
+      <geom type="mesh" rgba="1 0.423529 0.0392157 1" mesh="bottom_watertight_tiny_part1"/>
+      <geom type="mesh" rgba="1 0.423529 0.0392157 1" mesh="bottom_watertight_tiny_part2"/>
+      <geom type="mesh" rgba="1 0.423529 0.0392157 1" mesh="bottom_watertight_tiny_part3"/>
+      <geom type="mesh" rgba="1 0.423529 0.0392157 1" mesh="bottom_watertight_tiny_part4"/>
+      <geom type="mesh" rgba="1 0.423529 0.0392157 1" mesh="bottom_watertight_tiny_part5"/>
+      <geom type="mesh" rgba="1 0.423529 0.0392157 1" mesh="bottom_watertight_tiny_part6"/>
+      <geom type="mesh" rgba="1 0.423529 0.0392157 1" mesh="bottom_watertight_tiny_part7"/>
+      <body name="top">
+        <inertial pos="0.112183 0.0712945 0.0730111" quat="0.405227 0.00403576 0.00592529 0.914188" mass="0.13" diaginertia="0.00249554 0.00154448 0.000968024"/>
+        <joint name="rotation" pos="0 0 0" axis="0 0 -1" range="0 2.6" actuatorfrcrange="-50 50" damping="0.01" frictionloss="0.0" armature="0.1"/>
+        <geom type="mesh" rgba="1 0.423529 0.0392157 1" mesh="top_watertight_tiny_part0"/>
+        <geom type="mesh" rgba="1 0.423529 0.0392157 1" mesh="top_watertight_tiny_part1"/>
+        <geom type="mesh" rgba="1 0.423529 0.0392157 1" mesh="top_watertight_tiny_part2"/>
+        <geom type="mesh" rgba="1 0.423529 0.0392157 1" mesh="top_watertight_tiny_part3"/>
+        <geom type="mesh" rgba="1 0.423529 0.0392157 1" mesh="top_watertight_tiny_part4"/>
+        <geom type="mesh" rgba="1 0.423529 0.0392157 1" mesh="top_watertight_tiny_part5"/>
+        <geom type="mesh" rgba="1 0.423529 0.0392157 1" mesh="top_watertight_tiny_part6"/>
+        <geom type="mesh" rgba="1 0.423529 0.0392157 1" mesh="top_watertight_tiny_part7"/>
+      </body>
+    </body>
+  </worldbody>
+</mujoco>

@@ -1,0 +1,29 @@
+num_envs: 1
+episode_length: 1000
+obs_clip: 5.0
+freq: 30  # Hz use this to overwrite dt!
+scene_kwargs:  
+  substeps: 2
+  show_viewer: false
+  batch_dofs_info: false
+  n_rendered_envs: null  # None means all envs are rendered
+  enable_joint_limit: true
+  group_collisions: true  # this is for self-collision.
+  integrator: 0 # 0 for Euler, 1 for implicitfast, 2 for approximate_implicitfast
+
+# rendering related
+render_segmentation: false
+env_spacing: [2.0, 2.0]
+n_envs_per_row: null  # this will default to grid layout
+plane_urdf_path: 'urdf/plane/plane.urdf'
+table_pos: [0.0, -0.08, 0.90] # -- same as cardboard # [0.0, 0.0, 0.7]  # Position of the table in the environment ## [1.0, 0.0, 0.7]
+table_size: [0.2, 0.2, 0.1] # [0.8, 2.0, 0.24]  # Size of the table ##[0.8, 2.0, 0.2]
+camera_kwargs:
+  front:
+    pos: [0.0, -1.5, 1.2] # [0.4, 0.0, 1.0]
+    lookat: [0.0, -0.1, 1.0] # [1.0, 0.0, 0.8]
+    fov: 40 # 70
+    res: [300, 300]
+
+# action_clip: 1.0
+# action_scale: 1.0
